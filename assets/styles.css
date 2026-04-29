@@ -2004,13 +2004,34 @@ em, .italic { font-style: italic; }
 
 /* === FOOTER =========================================== */
 .site-footer {
-  background: var(--noir-soft);
+  background-color: var(--noir-soft);
+  background-image: url("images/jouy-pattern.jpg");
+  background-repeat: repeat;
+  background-size: 480px auto;
+  background-position: center top;
   color: var(--paper);
   padding: 120px 0 40px;
   position: relative;
   overflow: hidden;
   border-top: 1px solid var(--line-dark);
 }
+
+/* Voile sombre par-dessus le motif pour garantir la lisibilité du texte
+   (sans masquer complètement la toile de Jouy en arrière-plan). */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(31, 27, 23, 0.82) 0%,
+    rgba(31, 27, 23, 0.74) 40%,
+    rgba(31, 27, 23, 0.88) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.site-footer > * { position: relative; z-index: 1; }
 .footer-watermark {
   font-family: var(--serif);
   font-style: italic;
@@ -2892,7 +2913,8 @@ em, .italic { font-style: italic; }
 
 /* === FOOTER (compact) ============================== */
 [data-route="biens"] .site-footer{
-  background: var(--noir-soft);
+  /* On conserve le motif Jouy hérité de .site-footer ;
+     seul le padding est compacté pour cette route */
   padding: 60px 0 30px;
   border-top: 1px solid var(--line-dark);
 }
@@ -3148,7 +3170,7 @@ em, .italic { font-style: italic; }
 [data-route="bien-chantoiseau"] .sim-price{ font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--paper); }
 
 /* FOOTER */
-[data-route="bien-chantoiseau"] .site-footer{ background: var(--noir-soft); padding: 60px 0 30px; border-top: 1px solid var(--line-dark); }
+[data-route="bien-chantoiseau"] .site-footer{ padding: 60px 0 30px; border-top: 1px solid var(--line-dark); }
 [data-route="bien-chantoiseau"] .footer-inner{ display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: center; font-size: 11px; letter-spacing: 0.06em; color: var(--paper-mute); }
 [data-route="bien-chantoiseau"] .footer-inner a:hover{ color: var(--brique-warm); }
 [data-route="bien-chantoiseau"] .footer-inner .name{ font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 22px; color: var(--paper); }
@@ -3488,4 +3510,17 @@ body.nav-open {
   .brandmark-name {
     font-size: 26px;
   }
+}
+
+
+/* Bloc "noms de famille" sous le logo Cany dans le footer */
+.footer-brand .family-names {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--or);
+  margin-top: 4px;
+  margin-bottom: 14px;
+  opacity: 0.85;
 }
